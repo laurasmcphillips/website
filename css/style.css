@@ -1,0 +1,39 @@
+footer {
+    color: #b63400;
+    background-color: #ffede6;
+}
+.navbar {
+    color: #b63400;
+    background-color: #ffede6;
+}
+a:link {
+    color: #b63400;
+
+}
+a:visited {
+    color: #b63400;
+
+}
+a:hover {
+    color: #661400;
+    text-decoration: underline;
+}
+a:active {
+    color: #b32400;
+}
+h1, h4, h5 {
+    color: #b63400;
+}
+.card-1, .card-3 {
+    background-color: #ffede6;
+}
+.card-2 {
+    background-color: #b63400;
+    color: whitesmoke;;
+}
+.card-2 h5 {
+    color: whitesmoke;
+}
+.card-2 h1 {
+    color: whitesmoke;
+}
