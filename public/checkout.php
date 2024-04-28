@@ -1,9 +1,14 @@
 <?php
 require_once "../templates/header.php";
+
+if(!$_SESSION['Active']) {
+    header("location:login.php");
+    exit;
+}
 ?>
     <div class="container-fluid col-lg-4 my-5">
         <h1 class="display-1 text-center mb-5">Checkout</h1>
-        <form class="row g-3 needs-validation" novalidate>
+        <form class="row g-3 needs-validation">
             <h4 class="mb-3">Personal Details</h4>
             <div class="col-md-6">
                 <label for="firstname" class="form-label">First Name</label>
@@ -38,7 +43,7 @@ require_once "../templates/header.php";
             <h4 class="mb-3">Shipping Address</h4>
             <div class="col-12">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="1234 Main St">
+                <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">Please fill out this field.</div>
             </div>

@@ -1,20 +1,24 @@
 <?php
 session_start();
+if($_SESSION['Active'] == false){
+    header("location:login.php");
+    exit;
+}
 ?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Just Brew It</title>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body>
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <title>Just Brew It</title>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/style.css">
+    </head>
+    <body>
     <header class="sticky-top">
         <div class="navbar navbar-expand-md py-4">
             <div class="container">
@@ -44,11 +48,11 @@ session_start();
                         <li class="navbar-item">
                             <a class="nav-link" href="subscriptions.php">Subscriptions</a>
                         </li>
-                               <li class='navbar-item'><a href='myAccount.php' ><i class='fa-solid fa-user fa-2x mx-2 my-1'></i></a></li>
-                                <li  class='navbar-item mx-2 my-1'><a href='logout.php'><button type='button' class='btn btn-outline-danger'>Logout</button></a></li>
+                        <li class='navbar-item'><a href='myAccount.php' ><i class='fa-solid fa-user fa-2x mx-2 my-1'></i></a></li>
+                        <li  class='navbar-item mx-2 my-1'><a href='logout.php'><button type='button' class='btn btn-outline-danger'>Logout</button></a></li>
 
-                                <li  class='navbar-item mx-2 my-1'><a href='login.php'><button type='button' class='btn btn-outline-danger'>Login</button></a></li>
-                                <li  class='navbar-item mx-2 my-1'><a href='signup.php'><button type='button' class='btn btn-danger''>Sign-Up</button></a></li>
+                        <li  class='navbar-item mx-2 my-1'><a href='login.php'><button type='button' class='btn btn-outline-danger'>Login</button></a></li>
+                        <li  class='navbar-item mx-2 my-1'><a href='signup.php'><button type='button' class='btn btn-danger''>Sign-Up</button></a></li>
 
                         <li class="navbar-item">
                             <a class="nav-link" href="shopping_cart.php"><img src="../images/cart.png" alt="Shopping Cart" width="35px">&nbsp;<sup class="fw-bold">0</sup></a>

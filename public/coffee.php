@@ -1,114 +1,68 @@
 <?php
+
+try {
+    require_once '../src/DBconnect.php';
+
+    $sql_coffee = "SELECT * FROM products WHERE category = 'coffee'";
+
+    $statement = $connection->prepare($sql_coffee);
+    $statement->execute();
+    $result = $statement->fetchAll();
+
+} catch(PDOException $error) {
+    echo $sql_coffee . "<br>" . $error->getMessage();
+}
+if (isset($_POST['submit'])) {
+    try {
+        $productname = $_POST["productname"];
+        $image = $_POST["image"];
+        $price = $_POST["price"];
+        $quantity = $_POST["quantity"];
+
+        $products = array(
+            "productname" => $_POST['productname'],
+            "image" => $_POST['image'],
+            "price" => $_POST['price'],
+            "quantity" => $_POST['quantity']
+
+        );
+        $add_sql = "INSERT INTO shoppingcart (" . implode(', ', array_keys($products)).") values (:". implode(', :', array_keys($products)).")";
+
+        $statement = $connection->prepare($add_sql);
+        $statement->execute($products);
+    } catch(PDOException $error) {
+        echo $add_sql . "<br>" . $error->getMessage();
+    }
+
+}
 require_once "../templates/header.php";
 ?>
-<div class="container-fluid my-5">
-    <h1 class="display-1 text-center mt-4 ">Coffee Beans</h1>
-    <div class="row m-5">
-        <div class="col-lg-4">
-            <div class="card card1">
-                <img src="../images/green_coffee.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Network Chuck - Default Route</h5>
-                    <p class="card-text">light roast with subtle hints of nutmeg & ginger<br>Country of Origin: Brazil</p>
-                    <h4 class="text-center my-2">&euro;19.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card2">
-                <img src="../images/yellow_coffee.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Network Chuck - Sudo Blend</h5>
-                    <p class="card-text">Hints of Maple Syrup & Milk Chocolate<br>Country of Origin: Mexico</p>
-                    <h4 class="text-center my-2">&euro;19.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card3">
-                <img src="../images/red_coffee.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Network Chuck - 200 OK</h5>
-                    <p class="card-text">Hints of Rich Caramel & Cherry<br>Country of Origin: Colombia</p>
-                    <h4 class="text-center my-2">&euro;19.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
+    <div class="container-fluid my-5">
+        <h1 class="display-1 text-center mt-4 ">Coffee Beans</h1>
+        <div class="row my-5 px-5">
+                    <?php
+                    try {
+                        foreach ($result as $row) {
+                            echo "<div class='col-lg-4'>";
+                            echo "<div class='card my-4'>";
+                            echo "<div class='card-body'>";
+                            echo "<form method='POST' action=''>";
+                            echo "<img src=" . $row['image'] . " class='card-img-top' alt='image of coffee beans'>";
+                            echo "<h5 class='card-title'>" . $row['productname'] . "</h5>";
+                            echo "<p class='card-text'>" . $row['productdescription'] . "</p>";
+                            echo "<h4 class='text-center my-2'>&euro;" . $row['price'] . "</h4>";
+                            echo "<div class='text-center my-2'><button type='submit' name='submit' class='btn btn_add_cart btn-danger text-light text-center px-5'>Add to Cart</button></div>";
+                            echo "</form>";
+                            echo "</div>";
+                            echo "</div>";
+                            echo "</div>";
+                        }
+                    } catch(PDOException $error) {
+                        echo $sql . "<br>" . $error->getMessage();
+                    }
+                    ?>
         </div>
     </div>
-    <div class="row m-5">
-        <div class="col-lg-4">
-            <div class="card card4">
-                <img src="../images/blue_coffee.jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Network Chuck - On Call</h5>
-                    <p class="card-text">Hints of Cherry & Milk Chocolate<br>Country of Origin: Vietnam</p>
-                    <h4 class="text-center my-2">&euro;19.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card5">
-                <img src="../images/purple_coffee.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Coffee Perfection - Special Blend No. 14</h5>
-                    <p class="card-text">Hints of Caramel & Red Apple<br>Country of Origin: Brazil</p>
-                    <h4 class="text-center my-2">&euro;24.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card6">
-                <img src="../images/yellow_beans.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Coffee Perfection - Special Blend No. 21</h5>
-                    <p class="card-text">Hints of Rich Caramel & Milk Chocolate<br>Country of Origin: Colombia</p>
-                    <h4 class="text-center my-2">&euro;24.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row m-5">
-        <div class="col-lg-4">
-            <div class="card card7" >
-                <img src="../images/blue_beans.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Coffee Perfection - Special Blend No. 05</h5>
-                    <p class="card-text">Notes of Sweet Caramel & Milk Chocolate<br>Country of Origin: Vietnam</p>
-                    <h4 class="text-center my-2">&euro;24.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card8">
-                <img src="../images/green_beans.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Coffee Perfection - Special Blend No. 09</h5>
-                    <p class="card-text">Notes of Malt, Chocolate & Roasted Nut<br>Country of Origin: Latin America</p>
-                    <h4 class="text-center my-2">&euro;24.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="card card9">
-                <img src="../images/light_blue_beans.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Coffee Perfection - Mexican Mountain Water</h5>
-                    <p class="card-text">Decaffeinated Blend with notes of SugarCake & Citrus<br>Country of Origin: Mexico</p>
-                    <h4 class="text-center my-2">&euro;24.99</h4>
-                    <div class="text-center my-2"><a href="#" class="btn btn-danger text-light text-center px-5">Add to Cart</a></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <?php
 require_once "../templates/footer.php";
 ?>
